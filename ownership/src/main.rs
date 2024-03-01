@@ -24,6 +24,8 @@ fn main() {
 
     let s3 = takes_and_gives_back(s2);
     println!("{s3}");
+
+    reference_pointer();
 }
 
 fn takes_ownership(some_string: String) {
@@ -42,4 +44,13 @@ fn takes_and_gives_back(a_string: String) -> String {
     // scope
 
     a_string // a_string is returned and moves out to the calling function
+}
+
+fn reference_pointer() {
+    let s1 = String::from("Hello");
+    let len = calculate_lenth(&s1);
+    println!("The lenth of '{}' is {} ", s1, len)
+}
+fn calculate_lenth(s: &String) -> usize {
+    s.len()
 }
