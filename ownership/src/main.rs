@@ -26,6 +26,23 @@ fn main() {
     println!("{s3}");
 
     reference_pointer();
+
+    let mut s_slice = String::from("hello world");
+    let mut s_slice_word = String::from("Franklin Aurelio");
+
+    let word = first_word(&s_slice);
+    {
+        // word will get the value 5
+        let word_slice = first_word_slice(&s_slice_word);
+        println!("the word with slice is {word_slice}");
+    }
+    let second_word_slice = second_word_slice(&s_slice_word);
+
+    s_slice.clear();
+
+    println!("{word}");
+    println!("the word with slice is {second_word_slice}");
+    s_slice_word.clear(); // this empties the String, making it equal to ""
 }
 
 fn takes_ownership(some_string: String) {
@@ -53,4 +70,42 @@ fn reference_pointer() {
 }
 fn calculate_lenth(s: &String) -> usize {
     s.len()
+}
+
+//Slice
+
+fn first_word(s: &String) -> usize {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+
+    s.len()
+}
+
+fn first_word_slice(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+
+fn second_word_slice(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[i + 1..];
+        }
+    }
+
+    &s[..]
 }
